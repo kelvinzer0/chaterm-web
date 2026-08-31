@@ -1,4 +1,3 @@
-import "./api/web-bridge-init";
 // Performance marks (must be first import to capture earliest timestamp)
 import { mark, logRendererTimeline, setupPerfIpcListener, reportMarksToMainAsync } from './utils/perf'
 // 'chaterm/renderer/start' is recorded at module load time
