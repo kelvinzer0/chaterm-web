@@ -65,11 +65,40 @@ export function injectWebBridge() {
     getReleaseNotes: () => fetchBackend('/api/release-notes'),
     getVersionPrompt: () => fetchBackend('/api/version-prompt'),
     
+    // Logging
+    log: (level: string, message: string, ...args: any[]) => {
+      console[level === 'error' ? 'error' : level === 'warn' ? 'warn' : 'log'](`[Backend Log] ${message}`, ...args);
+    },
+
     // Auth and Config stubs
     getCookie: async () => ({ success: true, value: '' }),
     setCookie: async () => ({ success: true }),
     getAllCookies: async () => ({ success: true, cookies: [] }),
     removeCookie: async () => ({ success: true }),
+
+    // KV Store (localStorage mapping)
+    kvGet: async (key: string) => {
+      const val = localStorage.getItem(key);
+      return val ? JSON.parse(val) : null;
+    },
+    kvSet: async (key: string, value: any) => {
+      localStorage.setItem(key, JSON.stringify(value));
+      return true;
+    },
+    kvDelete: async (key: string) => {
+      localStorage.removeItem(key);
+      return true;
+    },
+    kvGetAll: async () => {
+      const all: Record<string, any> = {};
+      for (let i = 0; i < localStorage.length; i++) {
+        const key = localStorage.key(i);
+        if (key) {
+          try { all[key] = JSON.parse(localStorage.getItem(key) || 'null'); } catch {}
+        }
+      }
+      return all;
+    },
     
     // Basic overrides
     getLocalIP: async () => '127.0.0.1',

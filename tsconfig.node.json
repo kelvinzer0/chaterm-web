@@ -1,5 +1,4 @@
 {
-  "extends": "@electron-toolkit/tsconfig/tsconfig.node.json",
   "include": ["electron.vite.config.*", "src/backend_reference/**/*", "src/preload/**/*", "src/shared/**/*", "package.json"],
   "exclude": ["node_modules","dist"],
   "compilerOptions": {
