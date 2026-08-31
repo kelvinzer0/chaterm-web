@@ -7,13 +7,13 @@
     "productNameEn": ""
   },
   "api": {
-    "baseUrl": "https://api.chaterm.net/v1",
-    "kmsUrl": "https://api.chaterm.net/v1",
-    "syncUrl": "https://api.chaterm.net"
+    "baseUrl": "/api",
+    "kmsUrl": "/api",
+    "syncUrl": "/api"
   },
   "update": {
-    "serverUrl": "https://static-download.chaterm.net/",
-    "releaseNotesUrl": "https://chaterm.net/release-notes"
+    "serverUrl": "/downloads/",
+    "releaseNotesUrl": "/release-notes"
   },
   "auth": {
     "loginBaseUrl": "https://auth.chaterm.ai",
@@ -27,7 +27,7 @@
     "termsOfServiceUrl": "https://chaterm.ai/docs/contributing"
   },
   "speech": {
-    "wsUrl": "wss://api.chaterm.net/v1/speech/asr"
+    "wsUrl": "/api/speech/asr"
   },
   "docs": {
     "baseUrl": "https://chaterm.ai/docs"
