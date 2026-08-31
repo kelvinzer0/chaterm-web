@@ -33,7 +33,7 @@
         <span style="color: #2a82e4; margin-left: 12px">{{ brandingConfig.displayName }}</span>
       </div>
       <div class="term_login_input">
-        <template v-if="isDev">
+        <template>
           <!-- Login method switch -->
           
           <!-- Login form -->
@@ -91,34 +91,6 @@
               >
             </div>
           </form>
-        </template>
-        <template v-else>
-          <a-form
-            name="login"
-            :label-col="{ span: 0 }"
-            :wrapper-col="{ span: 24 }"
-            autocomplete="off"
-          >
-            <a-form-item>
-              <a-button
-                class="login-button"
-                type="primary"
-                html-type="submit"
-                :loading="externalLoginLoading"
-                @click="handleExternalLogin"
-              >
-                {{ $t('login.login') }}
-              </a-button>
-            </a-form-item>
-            <div class="skip-login">
-              {{ $t('login.skip') }}
-              <a
-                class="skip-link"
-                @click="skipLogin"
-                >{{ $t('login.skipLogin') }}</a
-              >
-            </div>
-          </a-form>
         </template>
       </div>
     </div>
