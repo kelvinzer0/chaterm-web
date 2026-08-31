@@ -212,7 +212,14 @@ export function injectWebBridge() {
     onUnmaximized: () => {},
     mainWindowShow: async () => {},
     captureButtonClick: async () => {},
-    initUserDatabase: async () => ({ success: true })
+        initUserDatabase: async () => ({ success: true }),
+    
+    // Skills integration
+    getSkills: async () => [],
+    getSkillsUserPath: async () => '/home/webuser/.chaterm/skills',
+    onSkillsUpdate: () => {},
+    reloadSkills: async () => ({ success: true }),
+    openSkillsFolder: async () => ({ success: true })
   };
 
   // Always override to support HMR
