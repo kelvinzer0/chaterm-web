@@ -33,7 +33,7 @@
         <span style="color: #2a82e4; margin-left: 12px">{{ brandingConfig.displayName }}</span>
       </div>
       <div class="term_login_input">
-        <template>
+
           <!-- Login method switch -->
           
           <!-- Login form -->
@@ -91,8 +91,8 @@
               >
             </div>
           </form>
-        </template>
-      </div>
+        
+</div>
     </div>
   </div>
 </template>
