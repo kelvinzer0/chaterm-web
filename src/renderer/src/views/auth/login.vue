@@ -33,66 +33,64 @@
         <span style="color: #2a82e4; margin-left: 12px">{{ brandingConfig.displayName }}</span>
       </div>
       <div class="term_login_input">
+        <!-- Login method switch -->
 
-          <!-- Login method switch -->
-          
-          <!-- Login form -->
-          <form
-            class="login-form"
-            @submit.prevent="onAccountLogin"
-          >
-            <div class="form-content">
-              <div class="input-group">
-                <div class="input-field">
-                  <span class="input-icon">
-                    <MailOutlined />
-                  </span>
-                  <input
-                    v-model="accountForm.username"
-                    type="email"
-                    :placeholder="$t('login.pleaseInputEmail')"
-                    class="form-input"
-                  />
-                </div>
-                <div class="input-divider"></div>
-                <div class="input-field">
-                  <span class="input-icon">
-                    <LockOutlined />
-                  </span>
-                  <input
-                    v-model="accountForm.password"
-                    type="password"
-                    :placeholder="$t('login.pleaseInputPassword')"
-                    class="form-input"
-                  />
-                </div>
-                <div class="input-divider"></div>
+        <!-- Login form -->
+        <form
+          class="login-form"
+          @submit.prevent="onAccountLogin"
+        >
+          <div class="form-content">
+            <div class="input-group">
+              <div class="input-field">
+                <span class="input-icon">
+                  <MailOutlined />
+                </span>
+                <input
+                  v-model="accountForm.username"
+                  type="email"
+                  :placeholder="$t('login.pleaseInputEmail')"
+                  class="form-input"
+                />
               </div>
-
-              <button
-                class="login-btn primary"
-                type="submit"
-                :disabled="loading"
-              >
-                <span
-                  v-if="loading"
-                  class="loading-spinner"
-                ></span>
-                {{ loading ? $t('login.loggingIn') : $t('login.login') + ' / Register' }}
-              </button>
+              <div class="input-divider"></div>
+              <div class="input-field">
+                <span class="input-icon">
+                  <LockOutlined />
+                </span>
+                <input
+                  v-model="accountForm.password"
+                  type="password"
+                  :placeholder="$t('login.pleaseInputPassword')"
+                  class="form-input"
+                />
+              </div>
+              <div class="input-divider"></div>
             </div>
 
-            <div class="skip-login">
-              {{ $t('login.skip') }}
-              <a
-                class="skip-link"
-                @click="skipLogin"
-                >{{ $t('login.skipLogin') }}</a
-              >
-            </div>
-          </form>
-        
-</div>
+            <button
+              class="login-btn primary"
+              type="submit"
+              :disabled="loading"
+            >
+              <span
+                v-if="loading"
+                class="loading-spinner"
+              ></span>
+              {{ loading ? $t('login.loggingIn') : $t('login.login') + ' / Register' }}
+            </button>
+          </div>
+
+          <div class="skip-login">
+            {{ $t('login.skip') }}
+            <a
+              class="skip-link"
+              @click="skipLogin"
+              >{{ $t('login.skipLogin') }}</a
+            >
+          </div>
+        </form>
+      </div>
     </div>
   </div>
 </template>

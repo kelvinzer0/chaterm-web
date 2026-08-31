@@ -68,7 +68,7 @@
           </template>
           <Model />
         </a-tab-pane>
-        
+
         <a-tab-pane
           key="5"
           type="card"
@@ -132,7 +132,7 @@
           </template>
           <Shortcuts />
         </a-tab-pane>
-        
+
         <a-tab-pane
           key="10"
           type="card"
@@ -193,14 +193,12 @@ import {
   AppstoreFilled,
   BookFilled,
   CodeFilled,
-  
   CodeSandboxSquareFilled,
   ExportOutlined,
   InfoCircleFilled,
   LockFilled,
   MobileFilled,
   ControlFilled,
-  
   SettingFilled,
   ThunderboltFilled,
   GoldFilled

@@ -1,14 +1,14 @@
-import Database from 'better-sqlite3';
-import path from 'path';
-import fs from 'fs';
-import crypto from 'crypto';
+import Database from 'better-sqlite3'
+import path from 'path'
+import fs from 'fs'
+import crypto from 'crypto'
 
-const dbPath = path.resolve(process.cwd(), 'data');
+const dbPath = path.resolve(process.cwd(), 'data')
 if (!fs.existsSync(dbPath)) {
-  fs.mkdirSync(dbPath, { recursive: true });
+  fs.mkdirSync(dbPath, { recursive: true })
 }
 
-const db = new Database(path.join(dbPath, 'chaterm-web.sqlite'));
+const db = new Database(path.join(dbPath, 'chaterm-web.sqlite'))
 
 // Initialize tables
 db.exec(`
@@ -59,14 +59,14 @@ db.exec(`
     passphrase TEXT,
     created_at DATETIME DEFAULT CURRENT_TIMESTAMP
   );
-`);
+`)
 
 export const hashPassword = (password: string) => {
-  return crypto.createHash('sha256').update(password).digest('hex');
-};
+  return crypto.createHash('sha256').update(password).digest('hex')
+}
 
 export const generateToken = () => {
-  return crypto.randomBytes(32).toString('hex');
-};
+  return crypto.randomBytes(32).toString('hex')
+}
 
-export default db;
+export default db

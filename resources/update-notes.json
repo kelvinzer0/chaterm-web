@@ -34,7 +34,8 @@
           "Enhanced audit and login safety with more accurate recent connections, preserved execution history, and stricter SSO account rules"
         ]
       }
-    },    {
+    },
+    {
       "version": "0.12.0",
       "date": "2026-06-11",
       "highlights": {

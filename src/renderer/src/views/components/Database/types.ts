@@ -170,15 +170,7 @@ export interface SqlExecutionHistoryEntry {
  * Handled centrally in the sidebar and routed to the corresponding store action.
  */
 export type ConnectionMenuAction =
-  | 'openConnection'
-  | 'closeConnection'
-  | 'queryConsole'
-  | 'createDatabase'
-  | 'editorSource'
-  | 'copyName'
-  | 'moveTo'
-  | 'refresh'
-  | 'remove'
+  'openConnection' | 'closeConnection' | 'queryConsole' | 'createDatabase' | 'editorSource' | 'copyName' | 'moveTo' | 'refresh' | 'remove'
 
 /**
  * Optional payload accompanying a connection-menu action. Currently used only

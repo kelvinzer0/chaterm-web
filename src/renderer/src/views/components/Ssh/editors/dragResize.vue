@@ -82,16 +82,14 @@ const startData = reactive({
   startHeight: position.height
 })
 
-const containerStyle = computed(
-  (): CSSProperties => ({
-    position: 'absolute',
-    left: `${position.x}px`,
-    top: `${position.y}px`,
-    width: `${position.width}px`,
-    height: `${position.height}px`,
-    zIndex: props.zIndex || 'auto'
-  })
-)
+const containerStyle = computed((): CSSProperties => ({
+  position: 'absolute',
+  left: `${position.x}px`,
+  top: `${position.y}px`,
+  width: `${position.width}px`,
+  height: `${position.height}px`,
+  zIndex: props.zIndex || 'auto'
+}))
 
 const handleMouseDown = (event: MouseEvent) => {
   if (props.dragHandle) {

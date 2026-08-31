@@ -76,7 +76,7 @@ export const createTerminalWriteQueue = (options: TerminalWriteQueueOptions): Te
 
   const dropPendingDroppableChunks = (requiredBytes: number): number => {
     let droppedBytes = 0
-    for (let index = 0; index < queue.length && pendingBytes + requiredBytes > maxPendingBytes; ) {
+    for (let index = 0; index < queue.length && pendingBytes + requiredBytes > maxPendingBytes;) {
       const chunk = queue[index]
       if (!chunk.droppable) {
         index++

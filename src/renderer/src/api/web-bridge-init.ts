@@ -1,2 +1,2 @@
-import { injectWebBridge } from './web-bridge';
-injectWebBridge();
+import { injectWebBridge } from './web-bridge'
+injectWebBridge()

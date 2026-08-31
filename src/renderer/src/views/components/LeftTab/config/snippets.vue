@@ -278,8 +278,7 @@
               sudo systemctl status nginx
               # Interrupt after 3 seconds
               sleep==3000
-              ctrl+c</pre
-                >
+              ctrl+c</pre>
               </div>
             </div>
           </div>
