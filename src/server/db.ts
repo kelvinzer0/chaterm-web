@@ -35,6 +35,30 @@ db.exec(`
     config TEXT NOT NULL,
     created_at DATETIME DEFAULT CURRENT_TIMESTAMP
   );
+
+  CREATE TABLE IF NOT EXISTS hosts (
+    uuid TEXT PRIMARY KEY,
+    name TEXT NOT NULL,
+    ip TEXT NOT NULL,
+    port INTEGER NOT NULL,
+    username TEXT,
+    key_chain_id TEXT,
+    group_id TEXT,
+    os_type TEXT,
+    created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
+    data TEXT
+  );
+
+  CREATE TABLE IF NOT EXISTS credentials (
+    key_chain_id TEXT PRIMARY KEY,
+    name TEXT NOT NULL,
+    chain_type TEXT NOT NULL,
+    username TEXT,
+    password TEXT,
+    private_key TEXT,
+    passphrase TEXT,
+    created_at DATETIME DEFAULT CURRENT_TIMESTAMP
+  );
 `);
 
 export const hashPassword = (password: string) => {

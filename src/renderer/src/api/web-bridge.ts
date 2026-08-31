@@ -229,7 +229,22 @@ export function injectWebBridge() {
     onUnmaximized: () => {},
     mainWindowShow: async () => {},
     captureButtonClick: async () => {},
-        initUserDatabase: async () => ({ success: true }),
+    
+    // Host (OrganizationAssets) integration
+    getOrganizationAssets: (payload: any) => fetchBackend('/api/hosts/list', { method: 'POST', body: JSON.stringify(payload) }).then(r => r.data || []),
+    createOrganizationAsset: (payload: any) => fetchBackend('/api/hosts/create', { method: 'POST', body: JSON.stringify(payload) }),
+    updateOrganizationAsset: (payload: any) => fetchBackend('/api/hosts/update', { method: 'POST', body: JSON.stringify(payload) }),
+    deleteOrganizationAsset: (payload: any) => fetchBackend('/api/hosts/delete', { method: 'POST', body: JSON.stringify(payload) }),
+    batchDeleteOrganizationAssets: (payload: any) => fetchBackend('/api/hosts/batch-delete', { method: 'POST', body: JSON.stringify(payload) }),
+
+    // Credentials (KeyChain) integration
+    getKeyChainList: () => fetchBackend('/api/credentials/list').then(r => r.data || []),
+    getKeyChainInfo: (payload: any) => fetchBackend('/api/credentials/info', { method: 'POST', body: JSON.stringify(payload) }).then(r => r.data),
+    createKeyChain: (payload: any) => fetchBackend('/api/credentials/create', { method: 'POST', body: JSON.stringify(payload) }),
+    updateKeyChain: (payload: any) => fetchBackend('/api/credentials/update', { method: 'POST', body: JSON.stringify(payload) }),
+    deleteKeyChain: (payload: any) => fetchBackend('/api/credentials/delete', { method: 'POST', body: JSON.stringify(payload) }),
+
+    initUserDatabase: async () => ({ success: true }),
     
     // Skills integration
     getSkills: async () => [],

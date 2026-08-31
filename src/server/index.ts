@@ -131,6 +131,68 @@ app.post('/api/db/assets/column-distinct', (req, res) => res.json({ ok: true, va
 app.post('/api/db/assets/detect-pk', (req, res) => res.json({ ok: true, primaryKey: ['id'] }));
 app.post('/api/db/assets/mutations', (req, res) => res.json({ ok: true, affected: [1], durationMs: 1 }));
 
+
+// Host (OrganizationAssets) Routes
+app.post('/api/hosts/list', (req, res) => {
+  const hosts = db.prepare('SELECT * FROM hosts').all();
+  res.json({ success: true, data: hosts.map((h: any) => ({ ...h, ...JSON.parse(h.data || '{}') })) });
+});
+app.post('/api/hosts/create', (req, res) => {
+  const uuid = Date.now().toString();
+  const { name, ip, port, username, key_chain_id, group_id, os_type, ...rest } = req.body.form || req.body;
+  db.prepare('INSERT INTO hosts (uuid, name, ip, port, username, key_chain_id, group_id, os_type, data) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)').run(
+    uuid, name, ip, port || 22, username || '', key_chain_id || '', group_id || '', os_type || 'linux', JSON.stringify(rest)
+  );
+  res.json({ success: true, data: { uuid, name, ip, port } });
+});
+app.post('/api/hosts/update', (req, res) => {
+  const { uuid, name, ip, port, username, key_chain_id, group_id, os_type, ...rest } = req.body.form || req.body;
+  db.prepare('UPDATE hosts SET name=?, ip=?, port=?, username=?, key_chain_id=?, group_id=?, os_type=?, data=? WHERE uuid=?').run(
+    name, ip, port, username || '', key_chain_id || '', group_id || '', os_type || 'linux', JSON.stringify(rest), uuid
+  );
+  res.json({ success: true });
+});
+app.post('/api/hosts/delete', (req, res) => {
+  db.prepare('DELETE FROM hosts WHERE uuid = ?').run(req.body.uuid);
+  res.json({ success: true });
+});
+app.post('/api/hosts/batch-delete', (req, res) => {
+  const uuids = req.body.uuids || [];
+  for (const uuid of uuids) {
+    db.prepare('DELETE FROM hosts WHERE uuid = ?').run(uuid);
+  }
+  res.json({ success: true });
+});
+
+// Credentials (KeyChain) Routes
+app.get('/api/credentials/list', (req, res) => {
+  const creds = db.prepare('SELECT key_chain_id, name, chain_type, username FROM credentials').all();
+  res.json({ success: true, data: creds });
+});
+app.post('/api/credentials/info', (req, res) => {
+  const cred = db.prepare('SELECT * FROM credentials WHERE key_chain_id = ?').get(req.body.id);
+  res.json({ success: true, data: cred || null });
+});
+app.post('/api/credentials/create', (req, res) => {
+  const id = Date.now().toString();
+  const { name, chain_type, username, password, private_key, passphrase } = req.body.form || req.body;
+  db.prepare('INSERT INTO credentials (key_chain_id, name, chain_type, username, password, private_key, passphrase) VALUES (?, ?, ?, ?, ?, ?, ?)').run(
+    id, name, chain_type || 'PASSWORD', username || '', password || '', private_key || '', passphrase || ''
+  );
+  res.json({ success: true, data: { key_chain_id: id } });
+});
+app.post('/api/credentials/update', (req, res) => {
+  const { key_chain_id, name, chain_type, username, password, private_key, passphrase } = req.body.form || req.body;
+  db.prepare('UPDATE credentials SET name=?, chain_type=?, username=?, password=?, private_key=?, passphrase=? WHERE key_chain_id=?').run(
+    name, chain_type, username || '', password || '', private_key || '', passphrase || '', key_chain_id
+  );
+  res.json({ success: true });
+});
+app.post('/api/credentials/delete', (req, res) => {
+  db.prepare('DELETE FROM credentials WHERE key_chain_id = ?').run(req.body.id);
+  res.json({ success: true });
+});
+
 // User API
 app.post('/api/user/login-pwd', (req, res) => {
   try {
