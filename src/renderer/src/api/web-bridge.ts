@@ -211,7 +211,8 @@ export function injectWebBridge() {
     onMaximized: () => {},
     onUnmaximized: () => {},
     mainWindowShow: async () => {},
-    captureButtonClick: async () => {}
+    captureButtonClick: async () => {},
+    initUserDatabase: async () => ({ success: true })
   };
 
   // Always override to support HMR

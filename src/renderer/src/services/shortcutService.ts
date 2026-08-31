@@ -237,7 +237,7 @@ export class ShortcutService {
 
   private matchesShortcut(event: KeyboardEvent, parsed: ParsedShortcut): boolean {
     const isMac = navigator.platform.toUpperCase().indexOf('MAC') >= 0
-    let eventKey = event.key.toLowerCase()
+    let eventKey = (event.key || "").toLowerCase()
 
     // Special handling for Tab key
     if (event.code === 'Tab' || event.key === 'Tab') {
