@@ -1,6 +1,6 @@
 <template>
   <div
-    v-if="!platform.includes('darwin')"
+    v-if="platform && platform !== 'web' && !platform.includes('darwin')"
     class="window-controls"
     :class="{ 'window-controls-login': props.variant === 'login' }"
     @mousedown.prevent
