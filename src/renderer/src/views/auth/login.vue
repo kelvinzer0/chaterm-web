@@ -35,50 +35,22 @@
       <div class="term_login_input">
         <template v-if="isDev">
           <!-- Login method switch -->
-          <div class="login-tabs">
-            <div
-              class="tab-item"
-              :class="{ active: activeTab === 'email' }"
-              @click="activeTab = 'email'"
-            >
-              {{ $t('login.emailLogin') }}
-            </div>
-            <div
-              v-if="isChineseEdition()"
-              class="tab-item"
-              :class="{ active: activeTab === 'mobile' }"
-              @click="activeTab = 'mobile'"
-            >
-              {{ $t('login.mobileLogin') }}
-            </div>
-            <div
-              class="tab-item"
-              :class="{ active: activeTab === 'account' }"
-              @click="activeTab = 'account'"
-            >
-              {{ $t('login.accountLogin') }}
-            </div>
-          </div>
-
+          
           <!-- Login form -->
           <form
             class="login-form"
-            @submit.prevent="handleLoginSubmit"
+            @submit.prevent="onAccountLogin"
           >
-            <!-- Account password login -->
-            <div
-              v-if="activeTab === 'account'"
-              class="form-content"
-            >
+            <div class="form-content">
               <div class="input-group">
                 <div class="input-field">
                   <span class="input-icon">
-                    <UserOutlined />
+                    <MailOutlined />
                   </span>
                   <input
                     v-model="accountForm.username"
-                    type="text"
-                    :placeholder="$t('login.pleaseInputUsername')"
+                    type="email"
+                    :placeholder="$t('login.pleaseInputEmail')"
                     class="form-input"
                   />
                 </div>
@@ -106,114 +78,7 @@
                   v-if="loading"
                   class="loading-spinner"
                 ></span>
-                {{ loading ? $t('login.loggingIn') : $t('login.login') }}
-              </button>
-            </div>
-
-            <!-- Email verification code login -->
-            <div
-              v-if="activeTab === 'email'"
-              class="form-content"
-            >
-              <div class="input-group">
-                <div class="input-field">
-                  <span class="input-icon">
-                    <MailOutlined />
-                  </span>
-                  <input
-                    v-model="emailForm.email"
-                    type="email"
-                    :placeholder="$t('login.pleaseInputEmail')"
-                    class="form-input"
-                  />
-                </div>
-                <div class="input-divider"></div>
-                <div class="input-field">
-                  <span class="input-icon">
-                    <SafetyOutlined />
-                  </span>
-                  <input
-                    v-model="emailForm.code"
-                    type="text"
-                    :placeholder="$t('login.pleaseInputCode')"
-                    class="form-input"
-                  />
-                  <button
-                    class="code-btn"
-                    type="button"
-                    :disabled="codeSending || countdown > 0"
-                    @click="sendCode"
-                  >
-                    {{ countdown > 0 ? `${countdown}s` : $t('login.getCode') }}
-                  </button>
-                </div>
-                <div class="input-divider"></div>
-              </div>
-
-              <button
-                class="login-btn primary"
-                type="submit"
-                :disabled="loading"
-              >
-                <span
-                  v-if="loading"
-                  class="loading-spinner"
-                ></span>
-                {{ loading ? $t('login.loggingIn') : $t('login.login') }}
-              </button>
-            </div>
-
-            <!-- Mobile verification code login -->
-            <div
-              v-if="isChineseEdition() && activeTab === 'mobile'"
-              class="form-content"
-            >
-              <div class="input-group">
-                <div class="input-field">
-                  <span class="input-icon">
-                    <MobileOutlined />
-                  </span>
-                  <span class="mobile-prefix">+86</span>
-                  <input
-                    v-model="mobileForm.mobile"
-                    type="tel"
-                    :placeholder="$t('login.pleaseInputMobile')"
-                    class="form-input mobile-input"
-                  />
-                </div>
-                <div class="input-divider"></div>
-                <div class="input-field">
-                  <span class="input-icon">
-                    <SafetyOutlined />
-                  </span>
-                  <input
-                    v-model="mobileForm.code"
-                    type="text"
-                    :placeholder="$t('login.pleaseInputCode')"
-                    class="form-input"
-                  />
-                  <button
-                    class="code-btn"
-                    type="button"
-                    :disabled="mobileCodeSending || mobileCountdown > 0"
-                    @click="sendMobileCode"
-                  >
-                    {{ mobileCountdown > 0 ? `${mobileCountdown}s` : $t('login.getCode') }}
-                  </button>
-                </div>
-                <div class="input-divider"></div>
-              </div>
-
-              <button
-                class="login-btn primary"
-                type="submit"
-                :disabled="loading"
-              >
-                <span
-                  v-if="loading"
-                  class="loading-spinner"
-                ></span>
-                {{ loading ? $t('login.loggingIn') : $t('login.login') }}
+                {{ loading ? $t('login.loggingIn') : $t('login.login') + ' / Register' }}
               </button>
             </div>
 
