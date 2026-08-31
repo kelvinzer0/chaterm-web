@@ -133,36 +133,30 @@ app.post('/api/db/assets/mutations', (req, res) => res.json({ ok: true, affected
 
 // User API
 app.post('/api/user/login-pwd', (req, res) => {
-  const { username, password } = req.body;
-  const hashed = hashPassword(password);
-  
-  let user: any = db.prepare('SELECT * FROM users WHERE username = ? OR email = ?').get(username, username);
-  
-  // Auto-register if user doesn't exist
-  if (!user) {
-    const result = db.prepare('INSERT INTO users (username, email, password) VALUES (?, ?, ?)').run(username, username, hashed);
-    user = { id: result.lastInsertRowid, username, email: username, password: hashed };
-  } else if (user.password !== hashed) {
-    return res.status(401).json({ code: 401, message: 'Invalid password' });
+  try {
+    const { username, password } = req.body;
+    const hashed = hashPassword(password || '');
+    
+    let user: any = db.prepare('SELECT * FROM users WHERE username = ? OR email = ?').get(username, username);
+    
+    // Auto-register if user doesn't exist
+    if (!user) {
+      const result = db.prepare('INSERT INTO users (username, email, password) VALUES (?, ?, ?)').run(username, username, hashed);
+      user = { id: result.lastInsertRowid, username, email: username, password: hashed };
+    } else if (user.password !== hashed) {
+      return res.status(401).json({ code: 401, message: 'Invalid password' });
+    }
+    
+    const token = generateToken();
+    db.prepare('UPDATE users SET token = ? WHERE id = ?').run(token, user.id);
+    
+    res.json({
+      code: 200,
+      data: { token, uid: user.id, username: user.username, email: user.email }
+    });
+  } catch (err: any) {
+    res.status(500).json({ code: 500, message: err.message, stack: err.stack });
   }
-  
-  const token = generateToken();
-  db.prepare('UPDATE users SET token = ? WHERE id = ?').run(token, user.id);
-  
-  res.json({
-    code: 200,
-    data: { token, uid: user.id, username: user.username, email: user.email }
-  });
-});
-  }
-  
-  const token = generateToken();
-  db.prepare('UPDATE users SET token = ? WHERE id = ?').run(token, user.id);
-  
-  res.json({
-    code: 200,
-    data: { token, uid: user.id, username: user.username, email: user.email }
-  });
 });
 
 app.post('/api/user/register', (req, res) => {
