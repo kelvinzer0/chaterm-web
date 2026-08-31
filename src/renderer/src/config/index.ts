@@ -1,6 +1,6 @@
 const config = {
   // Request URL
-  api: import.meta.env.MODE == 'development' ? '/api' : import.meta.env.RENDERER_VUE_APP_API_BASEURL,
+  api: import.meta.env.MODE.startsWith('development') ? '/api' : import.meta.env.RENDERER_VUE_APP_API_BASEURL,
   // Internationalization
   LANG: [
     { name: '简体中文', value: 'zh-CN' },
