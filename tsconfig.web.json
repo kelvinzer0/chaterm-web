@@ -6,25 +6,25 @@
     "src/renderer/src/**/*",
     "src/renderer/src/**/*.vue",
     "src/preload/*.d.ts",
-    "src/main/agent/shared/**/*",
+    "src/backend_reference/agent/shared/**/*",
     "src/shared/**/*"
   ],
   "exclude": [
     "node_modules",
     "dist",
-    "src/main/agent/core/**/*",
-    "src/main/agent/services/**/*",
-    "src/main/agent/api/**/*",
-    "src/main/agent/integrations/**/*",
-    "src/main/agent/utils/**/*",
-    "src/main/storage/**/*",
-    "src/main/index.ts",
-    "src/main/plugin/**/*",
-    "src/main/ssh/**/*",
-    "src/main/themeManager.ts",
-    "src/main/updater.ts",
-    "src/main/version/**/*",
-    "src/main/windowManager.ts"
+    "src/backend_reference/agent/core/**/*",
+    "src/backend_reference/agent/services/**/*",
+    "src/backend_reference/agent/api/**/*",
+    "src/backend_reference/agent/integrations/**/*",
+    "src/backend_reference/agent/utils/**/*",
+    "src/backend_reference/storage/**/*",
+    "src/backend_reference/index.ts",
+    "src/backend_reference/plugin/**/*",
+    "src/backend_reference/ssh/**/*",
+    "src/backend_reference/themeManager.ts",
+    "src/backend_reference/updater.ts",
+    "src/backend_reference/version/**/*",
+    "src/backend_reference/windowManager.ts"
   ],
   "compilerOptions": {
     "composite": true,
@@ -41,7 +41,7 @@
       "@api/*": ["src/renderer/src/api/*"],
       "@config/*": ["src/renderer/src/config/*"],
       "@/*": ["src/renderer/src/*"],
-      "@shared/*": ["src/main/agent/shared/*"],
+      "@shared/*": ["src/backend_reference/agent/shared/*"],
       "@logging": ["src/renderer/src/types/logging-web-stub.d.ts"],
       "@common/*": ["src/shared/*"]
     }

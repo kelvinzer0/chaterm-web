@@ -89,7 +89,7 @@ export default defineConfig(({ mode }) => {
         '@api': resolve('src/renderer/src/api'),
         '@config': resolve('src/renderer/src/config'),
         '@': resolve('src/renderer/src'),
-        '@shared': resolve('src/main/agent/shared'),
+        '@shared': resolve('src/backend_reference/agent/shared'),
         '@common': resolve('src/shared')
       }
     },
