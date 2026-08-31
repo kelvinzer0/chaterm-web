@@ -121,3 +121,26 @@ app.post('/api/user/register', (req, res) => {
     }
   });
 });
+
+// Mock user/info
+app.get('/api/user/info', (req, res) => {
+  res.json({
+    code: 200,
+    data: {
+      uid: 1,
+      username: 'mockuser',
+      email: 'mock@example.com',
+      avatar: '',
+      isVip: true,
+      vipExpireTime: '2099-12-31T23:59:59Z'
+    }
+  });
+});
+
+// Mock branding-config
+app.get('/api/branding-config', (req, res) => {
+  res.json({
+    edition: 'cn',
+    displayName: 'Chaterm (Web Mock)'
+  });
+});

@@ -17,7 +17,7 @@ interface LoginResponse {
 
 const urls = {
   sayHello: '/user',
-  userLogin: '/api/user/login-pwd',
+  userLogin: '/user/login-pwd',
   userLogOut: '/user/login-out',
   getUser: '/user/info',
   userQuickCommand: '/user/quick-command',
@@ -52,7 +52,7 @@ export function sendEmailCode(params) {
 export function emailLogin(params) {
   return request({
     method: 'post',
-    url: 'http://localhost:3000/api/user/login-pwd',
+    url: urls.userLogin,
     data: params
   })
 }
@@ -88,7 +88,7 @@ export function ssoBearerToken() {
 export function userLogin(params): ApiResponsePromise<LoginResponse> {
   return request({
     method: 'post',
-    url: 'http://localhost:3000/api/user/login-pwd',
+    url: urls.userLogin,
     data: params
   })
 }
