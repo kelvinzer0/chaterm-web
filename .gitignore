@@ -37,3 +37,4 @@ coverage/
 .Trae/
 .worktrees/
 electron.vite.config.*.mjs
+src/server/node_modules
