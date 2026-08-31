@@ -138,6 +138,6 @@ describe('onboarding actions', () => {
       }
     ])
     expect(sessionState.autoUpdateHost.value).toBe(false)
-    expect(sessionState.chatInputParts.value).toEqual([{ type: 'text', text: '查看主机状态' }])
+    expect(sessionState.chatInputParts.value).toEqual([{ type: 'text', text: 'Check host status' }])
   })
 })

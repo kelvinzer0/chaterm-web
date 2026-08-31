@@ -4,7 +4,7 @@ import { useSessionState } from '@/views/components/AiTab/composables/useSession
 import type { Host } from '@/views/components/AiTab/types'
 import type { ContentPart } from '@shared/WebviewMessage'
 
-const AI_CHAT_ONBOARDING_PROMPT = '查看主机状态'
+const AI_CHAT_ONBOARDING_PROMPT = 'Check host status'
 const LOCALHOST_CONTEXT: Host = {
   host: '127.0.0.1',
   uuid: 'localhost',

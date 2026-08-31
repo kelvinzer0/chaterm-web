@@ -869,7 +869,7 @@ export default {
         },
         send: {
           title: 'Send button',
-          description: 'The input is filled with "查看主机状态". Click Send to start a real AI request and finish this module.'
+          description: 'The input is filled with "Check host status". Click Send to start a real AI request and finish this module.'
         }
       }
     }

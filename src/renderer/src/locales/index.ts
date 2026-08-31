@@ -50,9 +50,9 @@ const messages = {
 }
 
 // Get default language from edition config (cn -> zh-CN, global -> en-US)
-const defaultLanguage = getDefaultLanguage()
+const defaultLanguage = 'en-US'
 
-const storedLang = localStorage.getItem('lang')
+const storedLang = 'en-US'
 const initialLocale = storedLang === SYSTEM_LANGUAGE_VALUE ? resolveAppliedLanguage(storedLang) : storedLang || defaultLanguage
 
 const i18n = createI18n({
