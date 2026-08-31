@@ -136,7 +136,33 @@ export function injectWebBridge() {
       const ws = await getWsConnection();
       ws.send(JSON.stringify({ action: 'disconnect', params }));
       return { success: true };
-    }
+    },
+    
+    // Database integration
+    dbAssetGroupList: () => fetchBackend('/api/db/groups'),
+    dbAssetGroupCreate: (payload: any) => fetchBackend('/api/db/groups/create', { method: 'POST', body: JSON.stringify(payload) }),
+    dbAssetGroupUpdate: (payload: any) => fetchBackend('/api/db/groups/update', { method: 'POST', body: JSON.stringify(payload) }),
+    dbAssetGroupDelete: (id: string) => fetchBackend(`/api/db/groups/${id}`, { method: 'DELETE' }),
+    
+    dbAssetList: () => fetchBackend('/api/db/assets'),
+    dbAssetGet: (id: string) => fetchBackend(`/api/db/assets/${id}`),
+    dbAssetCreate: (payload: any) => fetchBackend('/api/db/assets/create', { method: 'POST', body: JSON.stringify(payload) }),
+    dbAssetUpdate: (payload: any) => fetchBackend('/api/db/assets/update', { method: 'POST', body: JSON.stringify(payload) }),
+    dbAssetDelete: (id: string) => fetchBackend(`/api/db/assets/${id}`, { method: 'DELETE' }),
+    
+    dbAssetTestConnection: (payload: any) => fetchBackend('/api/db/assets/test', { method: 'POST', body: JSON.stringify(payload) }),
+    dbAssetConnect: (id: string) => fetchBackend(`/api/db/assets/${id}/connect`, { method: 'POST' }),
+    dbAssetDisconnect: (id: string) => fetchBackend(`/api/db/assets/${id}/disconnect`, { method: 'POST' }),
+    
+    dbAssetListChildren: (payload: any) => fetchBackend('/api/db/assets/children', { method: 'POST', body: JSON.stringify(payload) }),
+    dbAssetListSchemas: (payload: any) => fetchBackend('/api/db/assets/schemas', { method: 'POST', body: JSON.stringify(payload) }),
+    dbAssetExecuteQuery: (payload: any) => fetchBackend('/api/db/assets/query', { method: 'POST', body: JSON.stringify(payload) }),
+    dbAssetTableDdl: (payload: any) => fetchBackend('/api/db/assets/table-ddl', { method: 'POST', body: JSON.stringify(payload) }),
+    dbAssetQueryTable: (payload: any) => fetchBackend('/api/db/assets/query-table', { method: 'POST', body: JSON.stringify(payload) }),
+    dbAssetCountTable: (payload: any) => fetchBackend('/api/db/assets/count-table', { method: 'POST', body: JSON.stringify(payload) }),
+    dbAssetColumnDistinct: (payload: any) => fetchBackend('/api/db/assets/column-distinct', { method: 'POST', body: JSON.stringify(payload) }),
+    dbAssetDetectPrimaryKey: (payload: any) => fetchBackend('/api/db/assets/detect-pk', { method: 'POST', body: JSON.stringify(payload) }),
+    dbAssetExecuteMutations: (payload: any) => fetchBackend('/api/db/assets/mutations', { method: 'POST', body: JSON.stringify(payload) }),
   };
 
   if (!(window as any).api) {

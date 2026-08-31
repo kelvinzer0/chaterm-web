@@ -64,3 +64,35 @@ const PORT = process.env.PORT || 3000;
 server.listen(PORT, () => {
   console.log(`Chaterm Web Backend running on http://localhost:${PORT}`);
 });
+
+// Mock DB Routes
+app.get('/api/db/groups', (req, res) => res.json([]));
+app.post('/api/db/groups/create', (req, res) => res.json({ ok: true, group: req.body }));
+app.post('/api/db/groups/update', (req, res) => res.json({ ok: true, group: req.body.patch }));
+app.delete('/api/db/groups/:id', (req, res) => res.json({ ok: true }));
+
+app.get('/api/db/assets', (req, res) => res.json([]));
+app.get('/api/db/assets/:id', (req, res) => res.json(null));
+app.post('/api/db/assets/create', (req, res) => res.json({ ok: true, asset: req.body }));
+app.post('/api/db/assets/update', (req, res) => res.json({ ok: true, asset: req.body.patch }));
+app.delete('/api/db/assets/:id', (req, res) => res.json({ ok: true }));
+
+app.post('/api/db/assets/test', (req, res) => res.json({ ok: true, serverVersion: 'MockDB 1.0', latencyMs: 42 }));
+app.post('/api/db/assets/:id/connect', (req, res) => res.json({ ok: true }));
+app.post('/api/db/assets/:id/disconnect', (req, res) => res.json({ ok: true }));
+
+app.post('/api/db/assets/children', (req, res) => {
+  res.json({ ok: true, databases: ['mock_db'], tables: ['mock_table'], objects: [], columns: ['id', 'name'] });
+});
+app.post('/api/db/assets/schemas', (req, res) => res.json({ ok: true, schemas: [{ name: 'public', isSystem: false }] }));
+app.post('/api/db/assets/query', (req, res) => {
+  res.json({ ok: true, columns: ['mock_col'], rows: [{ mock_col: 'mock_val' }], rowCount: 1, durationMs: 1 });
+});
+app.post('/api/db/assets/table-ddl', (req, res) => res.json({ ok: true, ddl: 'CREATE TABLE mock_table (id INT);' }));
+app.post('/api/db/assets/query-table', (req, res) => {
+  res.json({ ok: true, columns: ['id', 'name'], rows: [{ id: 1, name: 'Test' }], rowCount: 1, durationMs: 1, total: 1, knownColumns: ['id', 'name'] });
+});
+app.post('/api/db/assets/count-table', (req, res) => res.json({ ok: true, total: 1, durationMs: 1 }));
+app.post('/api/db/assets/column-distinct', (req, res) => res.json({ ok: true, values: ['Test'] }));
+app.post('/api/db/assets/detect-pk', (req, res) => res.json({ ok: true, primaryKey: ['id'] }));
+app.post('/api/db/assets/mutations', (req, res) => res.json({ ok: true, affected: [1], durationMs: 1 }));
