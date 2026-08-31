@@ -96,3 +96,28 @@ app.post('/api/db/assets/count-table', (req, res) => res.json({ ok: true, total:
 app.post('/api/db/assets/column-distinct', (req, res) => res.json({ ok: true, values: ['Test'] }));
 app.post('/api/db/assets/detect-pk', (req, res) => res.json({ ok: true, primaryKey: ['id'] }));
 app.post('/api/db/assets/mutations', (req, res) => res.json({ ok: true, affected: [1], durationMs: 1 }));
+
+// Mock User API for Web Port
+app.post('/api/user/login-pwd', (req, res) => {
+  res.json({
+    code: 200,
+    data: {
+      token: 'mock-token-123',
+      uid: 1,
+      username: req.body.username || 'mockuser',
+      email: req.body.username || 'mock@example.com'
+    }
+  });
+});
+
+app.post('/api/user/register', (req, res) => {
+  res.json({
+    code: 200,
+    data: {
+      token: 'mock-token-123',
+      uid: 1,
+      username: req.body.email || 'mockuser',
+      email: req.body.email || 'mock@example.com'
+    }
+  });
+});
