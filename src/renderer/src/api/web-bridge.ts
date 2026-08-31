@@ -77,17 +77,22 @@ export function injectWebBridge() {
     removeCookie: async () => ({ success: true }),
 
     // KV Store (localStorage mapping)
-    kvGet: async (key: string) => {
+    // Note: the original API expects an object { key: string }
+    kvGet: async (args: any) => {
+      const key = typeof args === 'string' ? args : args.key;
       const val = localStorage.getItem(key);
       return val ? JSON.parse(val) : null;
     },
-    kvSet: async (key: string, value: any) => {
+    kvSet: async (args: any) => {
+      const key = typeof args === 'string' ? args : args.key;
+      const value = args.value !== undefined ? args.value : args;
       localStorage.setItem(key, JSON.stringify(value));
-      return true;
+      return { success: true };
     },
-    kvDelete: async (key: string) => {
+    kvDelete: async (args: any) => {
+      const key = typeof args === 'string' ? args : args.key;
       localStorage.removeItem(key);
-      return true;
+      return { success: true };
     },
     kvGetAll: async () => {
       const all: Record<string, any> = {};
@@ -192,27 +197,40 @@ export function injectWebBridge() {
     dbAssetColumnDistinct: (payload: any) => fetchBackend('/api/db/assets/column-distinct', { method: 'POST', body: JSON.stringify(payload) }),
     dbAssetDetectPrimaryKey: (payload: any) => fetchBackend('/api/db/assets/detect-pk', { method: 'POST', body: JSON.stringify(payload) }),
     dbAssetExecuteMutations: (payload: any) => fetchBackend('/api/db/assets/mutations', { method: 'POST', body: JSON.stringify(payload) }),
+    
+    // Other missing methods from user log
+    onMainMessage: () => {},
+    onKeyboardInteractiveRequest: () => {},
+    onKeyboardInteractiveTimeout: () => {},
+    onKeyboardInteractiveResult: () => {},
+    onUserSelectionRequest: () => {},
+    onUserSelectionTimeout: () => {},
+    onTokenExpired: () => {},
+    reportPerfMarks: () => {},
+    isMaximized: async () => false,
+    onMaximized: () => {},
+    onUnmaximized: () => {},
+    mainWindowShow: async () => {},
+    captureButtonClick: async () => {}
   };
 
-  if (!(window as any).api) {
-    (window as any).api = new Proxy(mockApi, {
-      get: (target, prop) => {
-        if (prop in target) return target[prop];
-        return async (...args: any[]) => {
-          console.warn(`[Web Bridge] Unimplemented API called: window.api.${String(prop)}`, args);
-          return { success: false, ok: false, error: 'Not implemented in web port yet' };
-        };
-      }
-    });
-  }
+  // Always override to support HMR
+  (window as any).api = new Proxy(mockApi, {
+    get: (target, prop) => {
+      if (prop in target) return target[prop];
+      return async (...args: any[]) => {
+        console.warn(`[Web Bridge] Unimplemented API called: window.api.${String(prop)}`, args);
+        return { success: false, ok: false, error: 'Not implemented in web port yet' };
+      };
+    }
+  });
 
-  if (!(window as any).electron) {
-    (window as any).electron = {
-      ipcRenderer: {
-        on: () => {},
-        send: () => {},
-        invoke: async () => ({})
-      }
-    };
-  }
+  // Always override electron as well
+  (window as any).electron = {
+    ipcRenderer: {
+      on: () => {},
+      send: () => {},
+      invoke: async () => ({})
+    }
+  };
 }
