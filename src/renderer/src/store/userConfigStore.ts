@@ -4,7 +4,7 @@ export const userConfigStore = defineStore('userConfig', {
   state: () => {
     return {
       userConfig: {
-        language: 'zh-CN',
+        language: 'en-US',
         aliasStatus: 1,
         uid: 0,
         autoCompleteStatus: 1,
@@ -60,7 +60,7 @@ export const userConfigStore = defineStore('userConfig', {
     } => {
       return (
         state?.userConfig || {
-          language: 'zh-CN',
+          language: 'en-US',
           aliasStatus: 2,
           uid: 0,
           autoCompleteStatus: 2,

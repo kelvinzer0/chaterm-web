@@ -41,7 +41,7 @@ export interface BackgroundConfig {
 
 export const SUPPORTED_LANGUAGE_VALUES = [
   'system',
-  'zh-CN',
+  'en-US',
   'zh-TW',
   'en-US',
   'de-DE',
@@ -172,7 +172,7 @@ export function buildDefaultUserConfig(now: number = Date.now()): UserConfig {
     showCloseButton: 1,
     fontSize: 12,
     scrollBack: 1000,
-    language: 'zh-CN',
+    language: 'en-US',
     cursorStyle: 'block',
     cursorBlink: true,
     lineHeight: 1,

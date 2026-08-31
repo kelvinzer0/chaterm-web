@@ -24,7 +24,7 @@ export function resolveSystemLanguage(tag?: string | null): string {
   if (primary === 'zh') {
     if (region && ['tw', 'hk', 'mo', 'hant'].includes(region)) return 'zh-TW'
     if (lower.includes('hant')) return 'zh-TW'
-    return 'zh-CN'
+    return 'en-US'
   }
 
   // Map by primary language tag

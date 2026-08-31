@@ -356,7 +356,7 @@ const { locale, t } = useI18n()
 const editorConfigStore = useEditorConfigStore()
 
 const userConfig = ref({
-  language: 'zh-CN',
+  language: 'en-US',
   watermark: 'open',
   theme: 'dark',
   defaultLayout: 'terminal',
