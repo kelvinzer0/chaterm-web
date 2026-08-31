@@ -76,12 +76,29 @@ export function injectWebBridge() {
     getAllCookies: async () => ({ success: true, cookies: [] }),
     removeCookie: async () => ({ success: true }),
 
-    // KV Store (localStorage mapping)
-    // Note: the original API expects an object { key: string }
-    kvGet: async (args: any) => {
+        // KV Store (localStorage mapping)
+    kvMutate: async (args: any) => {
+      const { action, key, value } = args;
+      if (action === 'set') {
+        localStorage.setItem(key, value);
+      } else if (action === 'delete') {
+        localStorage.removeItem(key);
+      }
+      return { success: true };
+    },
+        kvGet: async (args: any) => {
       const key = typeof args === 'string' ? args : args.key;
+      if (!key) {
+        // Return all keys
+        const keys = [];
+        for (let i = 0; i < localStorage.length; i++) {
+          keys.push(localStorage.key(i));
+        }
+        return keys;
+      }
       const val = localStorage.getItem(key);
-      return val ? JSON.parse(val) : null;
+      if (!val) return { value: null };
+      return { value: val }; // key-storage expects result.value
     },
     kvSet: async (args: any) => {
       const key = typeof args === 'string' ? args : args.key;
